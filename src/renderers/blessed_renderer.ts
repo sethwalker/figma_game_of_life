@@ -2,6 +2,7 @@ import { random } from "../grid";
 import * as blessed from "neo-blessed";
 
 let grid = random(10, 10);
+console.log(grid);
 
 const screen = blessed.screen({
   smartCSR: true,
