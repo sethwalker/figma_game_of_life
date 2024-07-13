@@ -1,8 +1,15 @@
-import { random } from "../grid";
+import { random, tick, Grid } from "../grid";
 import * as blessed from "neo-blessed";
 
-let grid = random(10, 10);
-console.log(grid);
+let grid = random(30, 15);
+if ("palomino") {
+  grid = new Grid(30, 15);
+  grid.populate(15, 5);
+  grid.populate(16, 4);
+  grid.populate(16, 5);
+  grid.populate(16, 6);
+  grid.populate(17, 6);
+}
 
 const screen = blessed.screen({
   smartCSR: true,
@@ -12,8 +19,8 @@ const box = blessed.box({
   parent: screen,
   top: "center",
   left: "center",
-  width: "80%",
-  height: "80%",
+  width: "90%",
+  height: "90%",
   content: "",
   tags: true,
   border: {
@@ -34,12 +41,10 @@ const box = blessed.box({
 screen.append(box);
 
 setInterval(() => {
-  grid = random(10, 10);
-  box.setContent("");
   for (let row of grid) {
     let top = row
       .map((cell) => {
-        return "populated" === cell.state
+        return cell.populated
           ? "{white-bg}{white-fg}1{/white-fg}{/white-bg}"
           : "{black-bg}{black-fg}0{/black-fg}{/black-bg}";
       })
@@ -48,7 +53,9 @@ setInterval(() => {
     box.insertLine(1, top);
   }
   screen.render();
-}, 2000);
+  grid = tick(grid);
+  box.setContent("");
+}, 1000);
 
 screen.key(["escape", "q", "C-c"], function (ch, key) {
   return process.exit(0);
