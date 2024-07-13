@@ -1,7 +1,6 @@
-import { widget } from "blessed";
-
 class Cell {
   state: "populated" | "unpopulated";
+
   constructor(state: "populated" | "unpopulated") {
     this.state = state;
   }
