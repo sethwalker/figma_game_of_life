@@ -1,3 +1,13 @@
+# Figma Game of Life
+
+## Demo
+
+
+
+https://github.com/user-attachments/assets/49ceffba-9179-4f95-8824-2b8e6ecf4f10
+
+
+
 Below are the steps to get your plugin running. You can also find instructions at:
 
   https://www.figma.com/plugin-docs/plugin-quickstart-guide/
