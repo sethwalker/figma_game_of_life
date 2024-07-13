@@ -32,7 +32,7 @@ if (figma.editorType === "figjam" || figma.editorType === "figma") {
       timer = setInterval(function () {
         grid = tick(grid);
         render(grid, section);
-      }, 2000);
+      }, 1000);
     }
 
     // Make sure to close the plugin when you're done. Otherwise the plugin will
@@ -99,5 +99,5 @@ function render(grid: Grid, section?: SectionNode) {
     }
     */
 
-  figma.viewport.scrollAndZoomIntoView(nodes);
+  //figma.viewport.scrollAndZoomIntoView(nodes);
 }
