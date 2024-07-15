@@ -1,6 +1,8 @@
 import { random, tick, Grid } from "./grid";
 
 const nodes: SceneNode[] = [];
+let grid: Grid;
+let size: number;
 
 if (figma.editorType === "figjam" || figma.editorType === "figma") {
   figma.showUI(__html__);
@@ -9,8 +11,9 @@ if (figma.editorType === "figjam" || figma.editorType === "figma") {
   // Calls to "parent.postMessage" from within the HTML page will trigger this
   // callback. The callback will be passed the "pluginMessage" property of the
   // posted message.
-  figma.ui.onmessage = (msg: { type: string; count: number }) => {
+  figma.ui.onmessage = (msg: { type: string; size: number }) => {
     if (msg.type === "clear") {
+      grid && grid.reset();
       clearInterval(timer);
       nodes.forEach((node) => (node.visible = false));
     }
@@ -27,7 +30,12 @@ if (figma.editorType === "figjam" || figma.editorType === "figma") {
         // fill the section
       }
 
-      let grid: Grid = random(20, 20);
+      if (!grid || grid.isEmpty() || size !== msg.size) {
+        size = msg.size;
+        const numCellsX = Math.round((section ? section.width : 1000) / size);
+        const numCellsY = Math.round((section ? section.height : 1000) / size);
+        grid = random(numCellsX, numCellsY);
+      }
       render(grid, section);
       timer = setInterval(function () {
         grid = tick(grid);
@@ -44,8 +52,8 @@ if (figma.editorType === "figjam" || figma.editorType === "figma") {
 function render(grid: Grid, section?: SectionNode) {
   const gridWidth = section ? section.width : 1000;
   const gridHeight = section ? section.height : 1000;
-  const cellWidth = gridWidth / 20;
-  const cellHeight = gridHeight / 20;
+  const cellWidth = gridWidth / grid.width;
+  const cellHeight = gridHeight / grid.height;
 
   nodes.forEach((node) => (node.visible = false));
 

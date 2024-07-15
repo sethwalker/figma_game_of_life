@@ -1,10 +1,17 @@
-<button id="run">Run</button>
-<button id="stop">Stop</button>
-<button id="clear">Clear</button>
+<section>
+
+  <button id="run">Run</button>
+  <button id="stop">Stop</button>
+  <button id="clear">Clear</button>
+</section>
+<section>
+  <label for="size">Cell size in pixels</label>
+  <input type="text" id="size" value="20" />
+</section>
 <script>
 
   document.getElementById('run').onclick = () => {
-    parent.postMessage({ pluginMessage: { type: 'run' } }, '*')
+    parent.postMessage({ pluginMessage: { type: 'run', size: document.getElementById('size').value } }, '*')
   }
 
   document.getElementById('stop').onclick = () => {

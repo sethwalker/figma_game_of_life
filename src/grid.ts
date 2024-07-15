@@ -23,6 +23,14 @@ export class Grid {
     this.cells = new Map();
   }
 
+  reset() {
+    this.cells = new Map();
+  }
+
+  isEmpty() {
+    return this.cells.size === 0;
+  }
+
   populate(x: number, y: number) {
     this.set([x, y], new Cell("populated"));
   }
@@ -59,7 +67,7 @@ export class Grid {
 }
 
 export function random(width: number, height: number) {
-  let grid = new Grid(width, height);
+  const grid = new Grid(width, height);
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
       if (Math.round(0.1 + Math.random())) {
