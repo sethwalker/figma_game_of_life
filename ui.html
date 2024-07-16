@@ -1,25 +1,90 @@
-<section>
+<!DOCTYPE html>
+<html lang="en">
 
-  <button id="run">Run</button>
-  <button id="stop">Stop</button>
-  <button id="clear">Clear</button>
-</section>
-<section>
-  <label for="size">Cell size in pixels</label>
-  <input type="text" id="size" value="20" />
-</section>
-<script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      padding: 16px;
+      background-color: #F3F3F3;
+    }
 
-  document.getElementById('run').onclick = () => {
-    parent.postMessage({ pluginMessage: { type: 'run', size: document.getElementById('size').value } }, '*')
-  }
+    section {
+      margin-bottom: 16px;
+    }
 
-  document.getElementById('stop').onclick = () => {
-    parent.postMessage({ pluginMessage: { type: 'stop' } }, '*')
-  }
+    button {
+      font-size: 14px;
+      padding: 8px 16px;
+      margin-right: 8px;
+      border: none;
+      border-radius: 4px;
+      background-color: #1ABCFE;
+      color: white;
+      cursor: pointer;
+    }
 
-  document.getElementById('clear').onclick = () => {
-    parent.postMessage({ pluginMessage: { type: 'clear' } }, '*')
-  }
+    button:hover {
+      background-color: #0A99D8;
+    }
 
-</script>
+    button:disabled {
+      background-color: #C4C4C4;
+      cursor: not-allowed;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: #333333;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #C4C4C4;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    #performance-help {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: #888888;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <button id="run">Run</button>
+    <button id="stop">Stop</button>
+    <button id="clear">Clear</button>
+  </section>
+  <section>
+    <label for="size">Cell size in pixels</label>
+    <input type="text" id="size" value="20" aria-describedby="performance-help" />
+    <label for="speed">Number of seconds between generations</label>
+    <input type="text" id="speed" value="0.5" aria-describedby="performance-help" />
+  </section>
+  <span id="performance-help">Many cells or a fast refresh rate may result in poor performance.</span>
+  <script>
+    document.getElementById('run').onclick = () => {
+      parent.postMessage({ pluginMessage: { type: 'run', size: document.getElementById('size').value } }, '*')
+    }
+
+    document.getElementById('stop').onclick = () => {
+      parent.postMessage({ pluginMessage: { type: 'stop' } }, '*')
+    }
+
+    document.getElementById('clear').onclick = () => {
+      parent.postMessage({ pluginMessage: { type: 'clear' } }, '*')
+    }
+  </script>
+</body>
+
+</html>
