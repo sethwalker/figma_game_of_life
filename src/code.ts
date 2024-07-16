@@ -27,7 +27,8 @@ if (figma.editorType === "figjam" || figma.editorType === "figma") {
       let section = undefined;
       if (
         figma.currentPage.selection[0] &&
-        "SECTION" === figma.currentPage.selection[0].type
+        ("SECTION" === figma.currentPage.selection[0].type ||
+          "FRAME" === figma.currentPage.selection[0].type)
       ) {
         section = figma.currentPage.selection[0];
         // fill the section
